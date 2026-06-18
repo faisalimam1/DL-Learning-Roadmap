@@ -1,7 +1,7 @@
 # 🧠 AI/ML, DL Roadmap — Faisal Imam
 ### From Deep Learning Foundations → HuggingFace → LLMs & RAG → Deploy & Ship
 
-![Progress](https://img.shields.io/badge/Progress-Day%2018%20of%2030-blue?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Progress-Day%2021%20of%2030-blue?style=for-the-badge)
 ![Phase](https://img.shields.io/badge/Current%20Phase-3%20LLMs%20%26%20RAG-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Building%20in%20Public-brightgreen?style=for-the-badge)
 
@@ -81,10 +81,10 @@ DL-Learning-Roadmap/
 |-----|-------|-------------|--------|----------|
 | ✅ Day 17 | LLM APIs | Groq · Roles · Temperature · JSON Mode | Temperature experiment (0.0 / 0.7 / 1.5) · JSON extraction · domain Q&A bot with injection-resistant system prompt | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
 | ✅ Day 18 | Prompt Engineering | Zero-shot · Few-shot · CoT · ReAct · Injection | Few-shot enforced exact format · CoT traced $9.00 step-by-step · ReAct reached 3.6M docs/day · V1 prompt failed injection, V2 held on all 3 attacks | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
-| ⏳ Day 19 | Vector Databases | FAISS · ChromaDB · ANN Search | — | Coming |
-| ⏳ Day 20 | RAG Pipeline v1 | PDF → Chunk → Embed → Retrieve → LLM | — | Coming |
-| ⏳ Day 21 | RAG Retrieval Quality | Chunking Strategies · Hybrid Search · BM25 | — | Coming |
-| ⏳ Day 22 | LangChain Basics | Chains · Memory · PromptTemplate | — | Coming |
+| ✅ Day 19 | Vector Databases | FAISS · ChromaDB · Cosine Similarity · ANN | Proved meaning-based retrieval beats keyword search — "weight optimization algorithm" scored 0 keyword overlap but 0.460 semantic similarity on the correct chunk | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 20 | RAG Pipeline v1 | PDF → Chunk → Embed → ChromaDB → Grounded LLM | Built full RAG on India's Bharatiya Nyaya Sanhita (BNS) 2023 — caught an LLM confidently stating BNS "isn't in effect yet" (false) when asked without RAG; grounded version correctly refused instead | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 21 | RAG Retrieval Quality | Structure-Aware Chunking · BM25 · Hybrid Search · RRF | Found & fixed 2 layered bugs (hidden cross-reference table contamination, mid-sentence chunk truncation) + discovered a 3rd: a document's own name in a query can drown out retrieval entirely | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| 🔄 Day 22 | LangChain Basics | LCEL Chains · PromptTemplate · Memory | In progress | Coming |
 | ⏳ Day 23 | AI Agents | Function Calling · ReAct Loop · Tool Use | — | Coming |
 | ⏳ Day 24 | **PROJECT: RAG Chatbot** | ChromaDB · Gradio Chat · HF Spaces | — | Coming |
 
@@ -109,7 +109,7 @@ DL-Learning-Roadmap/
 |---------|-------|-----------|--------|
 | 🖼️ Image Classifier | PyTorch · ResNet · Gradio | [HuggingFace Spaces](https://huggingface.co/spaces/faisalimam19/plant-disease-classifier) | ✅ Deployed |
 | 🤗 NLP Multi-Tool | BERT · HuggingFace · Streamlit | [nlp-multitool-app.streamlit.app](https://nlp-multitool-app.streamlit.app) | ✅ Deployed |
-| 🤖 RAG Chatbot | LangChain · ChromaDB · Gradio | Coming Day 24 | ⏳ Building |
+| 🤖 RAG Chatbot (Indian Law: BNS, Constitution, Evidence Act) | LangChain · ChromaDB · Hybrid Search · Gradio | Coming Day 24 | 🔄 Building |
 | ⚙️ RAG API (Production) | FastAPI · Docker · Render | Coming Day 30 | ⏳ |
 
 ---
@@ -161,6 +161,14 @@ DL-Learning-Roadmap/
 | ReAct Pattern | Agent completed Thought→Action→Observe loop — calculated 3,686,400 docs/day across 4 iterations |
 | Agent Failure Mode | Model called two Actions before first Observation — broke the loop; course-corrected on next turn |
 | Prompt Injection | V1 system prompt leaked all instructions + disabled constraints · V2 hardened prompt held on all 3 attack patterns |
+| Vector Search vs Keyword | "food and cooking" query: keyword search ranked unrelated ML sentences above the correct answer (0 word overlap for all 3); semantic search ranked the correct answer 1st at 0.410 |
+| Cosine Similarity Geometry | Negative similarity confirmed (-0.044) between semantically opposite sentences — proved direction, not just distance, encodes meaning |
+| Real-World RAG on Indian Law | Built full pipeline on Bharatiya Nyaya Sanhita (BNS) 2023, 237 pages, 77,343 words — extracted, chunked, embedded, retrieved, and grounded with page-level citations |
+| Hallucination vs Grounding | Same question asked with/without RAG: without RAG, LLM falsely claimed BNS "isn't in effect yet" and cited the wrong (IPC) section; with RAG, model correctly refused rather than repeat the false claim |
+| Chunking Bug Found & Fixed | Fixed-size 500-word chunks truncated Section 103's punishment clause mid-sentence; structure-aware chunking (split on the law's own 356 section boundaries, matching ~358 real BNS sections) fixed it completely |
+| Hidden Document Contamination | Found TWO separate front-matter documents (table of contents + a BNS↔IPC cross-reference table) silently polluting retrieval — fixed by correctly locating the Act's true starting boundary |
+| Hybrid Search (BM25 + RRF) | Combined keyword + semantic rankings via Reciprocal Rank Fusion — correctly surfaced Section 103 (murder) alongside legally-related Sections 109 and 55 |
+| Query Formulation Bug | Discovered a document's own name inside a query ("...of the Bharatiya Nyaya Sanhita?") can outrank the actual answer in both BM25 and semantic search — confirmed by removing the phrase and watching retrieval correct itself |
 
 ---
 
