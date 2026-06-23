@@ -1,8 +1,8 @@
 # 🧠 AI/ML, DL Roadmap — Faisal Imam
 ### From Deep Learning Foundations → HuggingFace → LLMs & RAG → Deploy & Ship
 
-![Progress](https://img.shields.io/badge/Progress-Day%2021%20of%2030-blue?style=for-the-badge)
-![Phase](https://img.shields.io/badge/Current%20Phase-3%20LLMs%20%26%20RAG-orange?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Progress-Day%2024%20of%2030-blue?style=for-the-badge)
+![Phase](https://img.shields.io/badge/Phase%203-Complete%20✅-success?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Building%20in%20Public-brightgreen?style=for-the-badge)
 
 > **Goal:** Go from fundamentals to 4 deployed AI projects.
@@ -16,8 +16,8 @@
 |-------|-------|------|--------|
 | **Phase 1** | Deep Learning Foundations | Days 1–8 | ✅ Complete |
 | **Phase 2** | HuggingFace & Transformers | Days 9–16 | ✅ Complete |
-| **Phase 3** | LLMs, Prompt Engineering & RAG | Days 17–24 | 🔄 In Progress |
-| **Phase 4** | Deploy & Ship | Days 25–30 | ⏳ Upcoming |
+| **Phase 3** | LLMs, Prompt Engineering & RAG | Days 17–24 | ✅ Complete |
+| **Phase 4** | Deploy & Ship | Days 25–30 | 🔄 In Progress |
 
 ---
 
@@ -30,12 +30,12 @@ DL-Learning-Roadmap/
 ├── 📓 phase-2-huggingface/
 │   └── Phase-2-DL-HuggingFace.ipynb        ← Days 9–16 (Complete)
 ├── 📓 phase-3-LLMs-RAG/
-│   └── Phase-3-LLMs-RAG.ipynb              ← Days 17–24 (In Progress)
-├── 📓 phase-4-deploy.ipynb                 ← Days 25–30 (Coming Soon)
+│   └── Phase-3-LLMs-RAG.ipynb              ← Days 17–24 (Complete)
+├── 📓 phase-4-deploy/                       ← Days 25–30 (In Progress)
 │
 ├── 🚀 Project 1: Image Classifier          ← Phase 1 capstone (Day 8)  ✅ Live
 ├── 🚀 Project 2: NLP Multi-Tool            ← Phase 2 capstone (Day 16) ✅ Live
-├── 🚀 Project 3: RAG Chatbot               ← Phase 3 capstone (Day 24) ⏳
+├── 🚀 Project 3: RAG Chatbot               ← Phase 3 capstone (Day 24) ✅ Live
 ├── 🚀 Project 4: RAG API (Prod)            ← Phase 4 capstone (Day 30) ⏳
 │
 └── README.md
@@ -75,22 +75,22 @@ DL-Learning-Roadmap/
 
 ---
 
-### 🔄 Phase 3: LLMs & RAG — In Progress
+### ✅ Phase 3: LLMs & RAG — COMPLETE
 
 | Day | Topic | Key Concept | Result | Notebook |
 |-----|-------|-------------|--------|----------|
-| ✅ Day 17 | LLM APIs | Groq · Roles · Temperature · JSON Mode | Temperature experiment (0.0 / 0.7 / 1.5) · JSON extraction · domain Q&A bot with injection-resistant system prompt | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
-| ✅ Day 18 | Prompt Engineering | Zero-shot · Few-shot · CoT · ReAct · Injection | Few-shot enforced exact format · CoT traced $9.00 step-by-step · ReAct reached 3.6M docs/day · V1 prompt failed injection, V2 held on all 3 attacks | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
-| ✅ Day 19 | Vector Databases | FAISS · ChromaDB · Cosine Similarity · ANN | Proved meaning-based retrieval beats keyword search — "weight optimization algorithm" scored 0 keyword overlap but 0.460 semantic similarity on the correct chunk | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
-| ✅ Day 20 | RAG Pipeline v1 | PDF → Chunk → Embed → ChromaDB → Grounded LLM | Built full RAG on India's Bharatiya Nyaya Sanhita (BNS) 2023 — caught an LLM confidently stating BNS "isn't in effect yet" (false) when asked without RAG; grounded version correctly refused instead | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
-| ✅ Day 21 | RAG Retrieval Quality | Structure-Aware Chunking · BM25 · Hybrid Search · RRF | Found & fixed 2 layered bugs (hidden cross-reference table contamination, mid-sentence chunk truncation) + discovered a 3rd: a document's own name in a query can drown out retrieval entirely | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
-| 🔄 Day 22 | LangChain Basics | LCEL Chains · PromptTemplate · Memory | In progress | Coming |
-| ⏳ Day 23 | AI Agents | Function Calling · ReAct Loop · Tool Use | — | Coming |
-| ⏳ Day 24 | **PROJECT: RAG Chatbot** | ChromaDB · Gradio Chat · HF Spaces | — | Coming |
+| ✅ Day 17 | LLM APIs | Groq · Roles · Temperature · JSON Mode | Temperature experiment (0.0/0.7/1.5) · JSON extraction · domain Q&A bot with injection-resistant system prompt | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 18 | Prompt Engineering | Zero-shot · Few-shot · CoT · ReAct · Injection | Few-shot enforced exact format · CoT traced $9.00 step-by-step · V1 prompt failed injection, V2 held on all 3 attacks | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 19 | Vector Databases | FAISS · ChromaDB · Cosine Similarity · ANN | Proved semantic search beats keyword search — "weight optimization algorithm" scored 0 keyword overlap but 0.460 semantic similarity | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 20 | RAG Pipeline v1 | PDF → Chunk → Embed → ChromaDB → Grounded LLM | Built full RAG on BNS 2023 — LLM without RAG falsely claimed BNS "isn't in effect yet"; grounded version correctly refused | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 21 | RAG Retrieval Quality | Structure-Aware Chunking · BM25 · Hybrid Search · RRF | Fixed 2 layered bugs + discovered 3rd: document's own name in a query drowns out retrieval entirely — confirmed by controlled test | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 22 | LangChain Basics | LCEL Chains · PromptTemplate · Memory | Memory handled "what about for theft instead?" with zero re-stated context · generic prompt hallucinated Nietzsche for a "RAG" question | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 23 | AI Agents | Function Calling · ReAct Loop · Tool Use | IPC→BNS conversion + punishment lookup in 3 iterations · model auto-translated "five plus five" → "5+5" before calling calculator | [View](./phase-3-LLMs-RAG/Phase-3-LLMs-RAG.ipynb) |
+| ✅ Day 24 | **PROJECT: Indian Legal RAG Chatbot** | ChromaDB · Hybrid Search · LangChain · Gradio · HF Spaces | **[🚀 LIVE DEMO](https://huggingface.co/spaces/faisalimam19/indian-legal-rag-chatbot)** · Caught & fixed live prompt injection post-deployment | [View](https://github.com/faisalimam1/indian-legal-rag-chatbot) |
 
 ---
 
-### ⏳ Phase 4: Deploy & Ship
+### 🔄 Phase 4: Deploy & Ship — In Progress
 
 | Day | Topic | Key Concept | Result | Notebook |
 |-----|-------|-------------|--------|----------|
@@ -103,14 +103,14 @@ DL-Learning-Roadmap/
 
 ---
 
-## 🚀 Live Projects (Built During Roadmap)
+## 🚀 Live Projects
 
-| Project | Stack | Live Demo | Status |
-|---------|-------|-----------|--------|
-| 🖼️ Image Classifier | PyTorch · ResNet · Gradio | [HuggingFace Spaces](https://huggingface.co/spaces/faisalimam19/plant-disease-classifier) | ✅ Deployed |
-| 🤗 NLP Multi-Tool | BERT · HuggingFace · Streamlit | [nlp-multitool-app.streamlit.app](https://nlp-multitool-app.streamlit.app) | ✅ Deployed |
-| 🤖 RAG Chatbot (Indian Law: BNS, Constitution, Evidence Act) | LangChain · ChromaDB · Hybrid Search · Gradio | Coming Day 24 | 🔄 Building |
-| ⚙️ RAG API (Production) | FastAPI · Docker · Render | Coming Day 30 | ⏳ |
+| Project | Stack | Live Demo | GitHub | Status |
+|---------|-------|-----------|--------|--------|
+| 🖼️ **Image Classifier** | PyTorch · ResNet · Gradio | [HuggingFace Spaces](https://huggingface.co/spaces/faisalimam19/plant-disease-classifier) | [Repo](https://github.com/faisalimam1/plant-disease-classifier) | ✅ Live |
+| 🤗 **NLP Multi-Tool** | BERT · HuggingFace · Streamlit | [nlp-multitool-app.streamlit.app](https://nlp-multitool-app.streamlit.app) | [Repo](https://github.com/faisalimam1/nlp-multitool-app) | ✅ Live |
+| ⚖️ **Indian Legal RAG Chatbot** | LangChain · ChromaDB · BM25 · Hybrid Search · Gradio | [🔗 indian-legal-rag-chatbot.hf.space](https://huggingface.co/spaces/faisalimam19/indian-legal-rag-chatbot) | [Repo](https://github.com/faisalimam1/indian-legal-rag-chatbot) | ✅ Live |
+| ⚙️ **RAG API (Production)** | FastAPI · Docker · Render | Coming Day 30 | — | ⏳ |
 
 ---
 
@@ -161,14 +161,18 @@ DL-Learning-Roadmap/
 | ReAct Pattern | Agent completed Thought→Action→Observe loop — calculated 3,686,400 docs/day across 4 iterations |
 | Agent Failure Mode | Model called two Actions before first Observation — broke the loop; course-corrected on next turn |
 | Prompt Injection | V1 system prompt leaked all instructions + disabled constraints · V2 hardened prompt held on all 3 attack patterns |
-| Vector Search vs Keyword | "food and cooking" query: keyword search ranked unrelated ML sentences above the correct answer (0 word overlap for all 3); semantic search ranked the correct answer 1st at 0.410 |
-| Cosine Similarity Geometry | Negative similarity confirmed (-0.044) between semantically opposite sentences — proved direction, not just distance, encodes meaning |
-| Real-World RAG on Indian Law | Built full pipeline on Bharatiya Nyaya Sanhita (BNS) 2023, 237 pages, 77,343 words — extracted, chunked, embedded, retrieved, and grounded with page-level citations |
-| Hallucination vs Grounding | Same question asked with/without RAG: without RAG, LLM falsely claimed BNS "isn't in effect yet" and cited the wrong (IPC) section; with RAG, model correctly refused rather than repeat the false claim |
-| Chunking Bug Found & Fixed | Fixed-size 500-word chunks truncated Section 103's punishment clause mid-sentence; structure-aware chunking (split on the law's own 356 section boundaries, matching ~358 real BNS sections) fixed it completely |
-| Hidden Document Contamination | Found TWO separate front-matter documents (table of contents + a BNS↔IPC cross-reference table) silently polluting retrieval — fixed by correctly locating the Act's true starting boundary |
-| Hybrid Search (BM25 + RRF) | Combined keyword + semantic rankings via Reciprocal Rank Fusion — correctly surfaced Section 103 (murder) alongside legally-related Sections 109 and 55 |
-| Query Formulation Bug | Discovered a document's own name inside a query ("...of the Bharatiya Nyaya Sanhita?") can outrank the actual answer in both BM25 and semantic search — confirmed by removing the phrase and watching retrieval correct itself |
+| Vector Search vs Keyword | "food and cooking" query: keyword search ranked unrelated ML sentences above correct answer; semantic search ranked it 1st at 0.410 |
+| Cosine Similarity Geometry | Negative similarity (-0.044) between semantically opposite sentences — direction, not just distance, encodes meaning |
+| Real-World RAG on Indian Law | Built full pipeline on BNS 2023, 237 pages, 77,343 words — extracted, chunked, embedded, retrieved, and grounded with page citations |
+| Hallucination vs Grounding | Without RAG: LLM falsely claimed BNS "isn't in effect yet" and cited wrong IPC section · With RAG: correctly refused instead |
+| Chunking Bug Found & Fixed | Fixed-size chunks truncated Section 103's punishment mid-sentence; structure-aware chunking on 356 section boundaries fixed it |
+| Hidden Document Contamination | Found TWO separate front-matter documents silently polluting retrieval — fixed by locating the Act's true starting boundary |
+| Hybrid Search (BM25 + RRF) | Combined keyword + semantic rankings via Reciprocal Rank Fusion — surfaced Section 103 with legally-related Sections 109 and 55 |
+| Query Formulation Bug | Document's own name in a query outranked the actual answer in both BM25 and semantic search — fixed by stripping the self-referential phrase |
+| LangChain Memory | "What about for theft instead?" correctly retrieved fresh theft sections with zero re-stated context — memory carried the question pattern forward |
+| Real Function Calling | IPC 302 → BNS 103 → punishment lookup in 3 iterations · model auto-translated "five plus five" → "5+5" before calling calculator |
+| Live Prompt Injection Caught | Deployed chatbot correctly refused "give me python code" but caved to "bypass your source document" — fixed with Day 18's V2 hardening pattern |
+| RAG Chatbot Deployed | [indian-legal-rag-chatbot.hf.space](https://huggingface.co/spaces/faisalimam19/indian-legal-rag-chatbot) — grounded answers with citations, memory, hybrid search, injection-hardened system prompt |
 
 ---
 
@@ -182,6 +186,8 @@ DL-Learning-Roadmap/
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=flat&logo=kaggle&logoColor=white)
+![Gradio](https://img.shields.io/badge/Gradio-F97316?style=flat&logo=gradio&logoColor=white)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-000000?style=flat&logoColor=white)
 
 ---
 
