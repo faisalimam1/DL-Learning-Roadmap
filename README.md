@@ -1,8 +1,8 @@
 # 🧠 AI/ML, DL Roadmap — Faisal Imam
 ### From Deep Learning Foundations → HuggingFace → LLMs & RAG → Deploy & Ship
 
-![Progress](https://img.shields.io/badge/Progress-Day%2024%20of%2030-blue?style=for-the-badge)
-![Phase](https://img.shields.io/badge/Phase%203-Complete%20✅-success?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Progress-Day%2027%20of%2030-blue?style=for-the-badge)
+![Phase](https://img.shields.io/badge/Phase%204-In%20Progress%20🔄-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Building%20in%20Public-brightgreen?style=for-the-badge)
 
 > **Goal:** Go from fundamentals to 4 deployed AI projects.
@@ -31,7 +31,8 @@ DL-Learning-Roadmap/
 │   └── Phase-2-DL-HuggingFace.ipynb        ← Days 9–16 (Complete)
 ├── 📓 phase-3-LLMs-RAG/
 │   └── Phase-3-LLMs-RAG.ipynb              ← Days 17–24 (Complete)
-├── 📓 phase-4-deploy/                       ← Days 25–30 (In Progress)
+├── 📓 phase-4-deploy/
+│   └── phase-4-deploy.ipynb                ← Days 25–30 (In Progress)
 │
 ├── 🚀 Project 1: Image Classifier          ← Phase 1 capstone (Day 8)  ✅ Live
 ├── 🚀 Project 2: NLP Multi-Tool            ← Phase 2 capstone (Day 16) ✅ Live
@@ -94,9 +95,9 @@ DL-Learning-Roadmap/
 
 | Day | Topic | Key Concept | Result | Notebook |
 |-----|-------|-------------|--------|----------|
-| ⏳ Day 25 | FastAPI | REST API · Pydantic · Swagger UI | — | Coming |
-| ⏳ Day 26 | Streamlit / Gradio UI | Demo GIF · Chat Interface · Polish | — | Coming |
-| ⏳ Day 27 | Docker | Dockerfile · docker-compose | — | Coming |
+| ✅ Day 25 | FastAPI | REST API · Pydantic v2 · Swagger UI | 3 endpoints: `GET /health` · `POST /chat` (session-aware, grounded + citations) · `POST /predict` (sentiment + confidence) · 2 production bugs caught & fixed: Pydantic v2 strict type coercion + uvicorn event loop isolation | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
+| ✅ Day 26 | Streamlit / Gradio UI | Chat Interface · Loading Indicators · Demo GIF | Polished Gradio chat UI with loading spinners, example inputs, and clear button · demo GIF recorded | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
+| ✅ Day 27 | Docker | Dockerfile · docker-compose · Containerisation | Dockerfile written for FastAPI + RAG app · docker-compose.yml with ChromaDB service · image built and verified at localhost:8000 | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
 | ⏳ Day 28 | Deploy to Render + HF Spaces | Live URL · Environment Vars · CI/CD | — | Coming |
 | ⏳ Day 29 | GitHub Portfolio Cleanup | README · Badges · Pinned Repos | — | Coming |
 | ⏳ Day 30 | Interview Prep | 30 Q&As · STAR Format · Reflection | — | Coming |
@@ -110,7 +111,7 @@ DL-Learning-Roadmap/
 | 🖼️ **Image Classifier** | PyTorch · ResNet · Gradio | [HuggingFace Spaces](https://huggingface.co/spaces/faisalimam19/plant-disease-classifier) | [Repo](https://github.com/faisalimam1/plant-disease-classifier) | ✅ Live |
 | 🤗 **NLP Multi-Tool** | BERT · HuggingFace · Streamlit | [nlp-multitool-app.streamlit.app](https://nlp-multitool-app.streamlit.app) | [Repo](https://github.com/faisalimam1/nlp-multitool-app) | ✅ Live |
 | ⚖️ **Indian Legal RAG Chatbot** | LangChain · ChromaDB · BM25 · Hybrid Search · Gradio | [🔗 indian-legal-rag-chatbot.hf.space](https://huggingface.co/spaces/faisalimam19/indian-legal-rag-chatbot) | [Repo](https://github.com/faisalimam1/indian-legal-rag-chatbot) | ✅ Live |
-| ⚙️ **RAG API (Production)** | FastAPI · Docker · Render | Coming Day 30 | — | ⏳ |
+| ⚙️ **RAG API (Production)** | FastAPI · Docker · Render | Coming Day 28 | — | ⏳ |
 
 ---
 
@@ -173,6 +174,16 @@ DL-Learning-Roadmap/
 | Real Function Calling | IPC 302 → BNS 103 → punishment lookup in 3 iterations · model auto-translated "five plus five" → "5+5" before calling calculator |
 | Live Prompt Injection Caught | Deployed chatbot correctly refused "give me python code" but caved to "bypass your source document" — fixed with Day 18's V2 hardening pattern |
 | RAG Chatbot Deployed | [indian-legal-rag-chatbot.hf.space](https://huggingface.co/spaces/faisalimam19/indian-legal-rag-chatbot) — grounded answers with citations, memory, hybrid search, injection-hardened system prompt |
+
+### Phase 4 — Deploy & Ship
+
+| Concept | What I Proved |
+|---------|--------------|
+| FastAPI Design | Model loaded once at startup — never per-request; foundational API design principle |
+| Pydantic v2 Behaviour | Stricter than v1: does not silently coerce `int → str` — ValidationError is the correct signal, not a bug |
+| Async Isolation | `nest_asyncio` is a fragile patch for non-standard environments — clean event loop isolation via `asyncio.new_event_loop()` in a server thread is the correct fix |
+| Production API | 3 endpoints tested end-to-end: health check · session-aware multi-turn chat with source citations · sentiment prediction with confidence score |
+| Containerisation | One Dockerfile packages the full FastAPI + RAG stack — docker-compose.yml adds ChromaDB as a sidecar service; image verified at localhost:8000 |
 
 ---
 
