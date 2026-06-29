@@ -1,7 +1,7 @@
 # 🧠 AI/ML, DL Roadmap — Faisal Imam
 ### From Deep Learning Foundations → HuggingFace → LLMs & RAG → Deploy & Ship
 
-![Progress](https://img.shields.io/badge/Progress-Day%2027%20of%2030-blue?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Progress-Day%2028%20of%2030-blue?style=for-the-badge)
 ![Phase](https://img.shields.io/badge/Phase%204-In%20Progress%20🔄-orange?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Building%20in%20Public-brightgreen?style=for-the-badge)
 
@@ -37,7 +37,7 @@ DL-Learning-Roadmap/
 ├── 🚀 Project 1: Image Classifier          ← Phase 1 capstone (Day 8)  ✅ Live
 ├── 🚀 Project 2: NLP Multi-Tool            ← Phase 2 capstone (Day 16) ✅ Live
 ├── 🚀 Project 3: RAG Chatbot               ← Phase 3 capstone (Day 24) ✅ Live
-├── 🚀 Project 4: RAG API (Prod)            ← Phase 4 capstone (Day 30) ⏳
+├── 🚀 Project 4: RAG API (Prod)            ← Phase 4 capstone (Day 28) ✅ Live
 │
 └── README.md
 ```
@@ -96,9 +96,9 @@ DL-Learning-Roadmap/
 | Day | Topic | Key Concept | Result | Notebook |
 |-----|-------|-------------|--------|----------|
 | ✅ Day 25 | FastAPI | REST API · Pydantic v2 · Swagger UI | 3 endpoints: `GET /health` · `POST /chat` (session-aware, grounded + citations) · `POST /predict` (sentiment + confidence) · 2 production bugs caught & fixed: Pydantic v2 strict type coercion + uvicorn event loop isolation | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
-| ✅ Day 26 | Streamlit / Gradio UI | Chat Interface · Loading Indicators · Demo GIF | Polished Gradio chat UI with loading spinners, example inputs, and clear button · demo GIF recorded | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
-| ✅ Day 27 | Docker | Dockerfile · docker-compose · Containerisation | Dockerfile written for FastAPI + RAG app · docker-compose.yml with ChromaDB service · image built and verified at localhost:8000 | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
-| ⏳ Day 28 | Deploy to Render + HF Spaces | Live URL · Environment Vars · CI/CD | — | Coming |
+| ✅ Day 26 | Gradio UI | Chat Interface · gr.State · Subprocess Fix | Two-tab Gradio app calling FastAPI over HTTP · session memory via `gr.State` · all 3 error states handled · Gradio imports `nest_asyncio` internally — fixed by running FastAPI as subprocess | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
+| ✅ Day 27 | Docker | Dockerfile · docker-compose · Layer Caching | Production Dockerfile with layer-cache optimized pip install · docker-compose.yml with ChromaDB named volumes + health checks · pinned requirements for reproducible builds | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
+| ✅ Day 28 | Deploy to Render | Live URL · Docker Build · CI/CD · Secret Scanning | **[🚀 LIVE API](https://indian-legal-rag-api-xe44.onrender.com/docs)** · `git push` → Render detects → `docker build` → live · GitHub secret scanning blocked accidental key commit — fixed with `git commit --amend` + key rotation | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
 | ⏳ Day 29 | GitHub Portfolio Cleanup | README · Badges · Pinned Repos | — | Coming |
 | ⏳ Day 30 | Interview Prep | 30 Q&As · STAR Format · Reflection | — | Coming |
 
@@ -110,8 +110,8 @@ DL-Learning-Roadmap/
 |---------|-------|-----------|--------|--------|
 | 🖼️ **Image Classifier** | PyTorch · ResNet · Gradio | [HuggingFace Spaces](https://huggingface.co/spaces/faisalimam19/plant-disease-classifier) | [Repo](https://github.com/faisalimam1/plant-disease-classifier) | ✅ Live |
 | 🤗 **NLP Multi-Tool** | BERT · HuggingFace · Streamlit | [nlp-multitool-app.streamlit.app](https://nlp-multitool-app.streamlit.app) | [Repo](https://github.com/faisalimam1/nlp-multitool-app) | ✅ Live |
-| ⚖️ **Indian Legal RAG Chatbot** | LangChain · ChromaDB · BM25 · Hybrid Search · Gradio | [🔗 indian-legal-rag-chatbot.hf.space](https://huggingface.co/spaces/faisalimam19/indian-legal-rag-chatbot) | [Repo](https://github.com/faisalimam1/indian-legal-rag-chatbot) | ✅ Live |
-| ⚙️ **RAG API (Production)** | FastAPI · Docker · Render | Coming Day 28 | — | ⏳ |
+| ⚖️ **Indian Legal RAG Chatbot** | LangChain · ChromaDB · BM25 · Hybrid Search · Gradio | [HuggingFace Spaces](https://huggingface.co/spaces/faisalimam19/indian-legal-rag-chatbot) | [Repo](https://github.com/faisalimam1/indian-legal-rag-chatbot) | ✅ Live |
+| ⚙️ **RAG API (Production)** | FastAPI · Pydantic v2 · Docker · Render | [🔗 Swagger UI](https://indian-legal-rag-api-xe44.onrender.com/docs) | [Repo](https://github.com/faisalimam1/indian-legal-rag-api) | ✅ Live |
 
 ---
 
@@ -181,9 +181,12 @@ DL-Learning-Roadmap/
 |---------|--------------|
 | FastAPI Design | Model loaded once at startup — never per-request; foundational API design principle |
 | Pydantic v2 Behaviour | Stricter than v1: does not silently coerce `int → str` — ValidationError is the correct signal, not a bug |
-| Async Isolation | `nest_asyncio` is a fragile patch for non-standard environments — clean event loop isolation via `asyncio.new_event_loop()` in a server thread is the correct fix |
-| Production API | 3 endpoints tested end-to-end: health check · session-aware multi-turn chat with source citations · sentiment prediction with confidence score |
-| Containerisation | One Dockerfile packages the full FastAPI + RAG stack — docker-compose.yml adds ChromaDB as a sidecar service; image verified at localhost:8000 |
+| Async Isolation | `nest_asyncio` is a fragile patch — Gradio applies it internally on import and breaks uvicorn's `loop_factory` on Python 3.12; fix is running FastAPI as a subprocess before Gradio is imported |
+| Separation of Concerns | Gradio UI contains zero business logic — one HTTP POST is the entire chat function; UI and API are independently replaceable |
+| Layer Cache Optimisation | `COPY requirements.txt` before `COPY app/` — pip install cached on most builds; first build 4 min → subsequent builds ~10s |
+| Secret Scanning | GitHub push protection blocked accidental API key commit in `.env.example` — fixed with `git commit --amend` + force push + immediate key rotation |
+| Production Deployment | `git push` → Render detects → `docker build` → `docker run` → live public URL — zero manual server config, Cloudflare SSL automatic |
+| Live API Verified | `GET /health` 200 · `POST /chat` 200 with session ID + 2 source chunks · `POST /predict` 200 with label + confidence · Swagger UI at [/docs](https://indian-legal-rag-api-xe44.onrender.com/docs) accessible from any browser |
 
 ---
 
@@ -196,6 +199,7 @@ DL-Learning-Roadmap/
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat&logo=langchain&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=flat&logo=render&logoColor=white)
 ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=flat&logo=kaggle&logoColor=white)
 ![Gradio](https://img.shields.io/badge/Gradio-F97316?style=flat&logo=gradio&logoColor=white)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-000000?style=flat&logoColor=white)
