@@ -1,9 +1,9 @@
 # 🧠 AI/ML, DL Roadmap — Faisal Imam
 ### From Deep Learning Foundations → HuggingFace → LLMs & RAG → Deploy & Ship
 
-![Progress](https://img.shields.io/badge/Progress-Day%2028%20of%2030-blue?style=for-the-badge)
-![Phase](https://img.shields.io/badge/Phase%204-In%20Progress%20🔄-orange?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Building%20in%20Public-brightgreen?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Progress-Day%2030%20of%2030-blue?style=for-the-badge)
+![Phase](https://img.shields.io/badge/Phase%204-Complete%20✅-brightgreen?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Roadmap%20Complete-brightgreen?style=for-the-badge)
 
 > **Goal:** Go from fundamentals to 4 deployed AI projects.
 > **Rule:** One commit every day. No exceptions.
@@ -17,7 +17,7 @@
 | **Phase 1** | Deep Learning Foundations | Days 1–8 | ✅ Complete |
 | **Phase 2** | HuggingFace & Transformers | Days 9–16 | ✅ Complete |
 | **Phase 3** | LLMs, Prompt Engineering & RAG | Days 17–24 | ✅ Complete |
-| **Phase 4** | Deploy & Ship | Days 25–30 | 🔄 In Progress |
+| **Phase 4** | Deploy & Ship | Days 25–30 | ✅ Complete |
 
 ---
 
@@ -32,7 +32,8 @@ DL-Learning-Roadmap/
 ├── 📓 phase-3-LLMs-RAG/
 │   └── Phase-3-LLMs-RAG.ipynb              ← Days 17–24 (Complete)
 ├── 📓 phase-4-deploy/
-│   └── phase-4-deploy.ipynb                ← Days 25–30 (In Progress)
+│   ├── phase-4-deploy.ipynb                ← Days 25–28 (Complete)
+│   └── Day30-Interview-Prep.md             ← Day 30 (Complete)
 │
 ├── 🚀 Project 1: Image Classifier          ← Phase 1 capstone (Day 8)  ✅ Live
 ├── 🚀 Project 2: NLP Multi-Tool            ← Phase 2 capstone (Day 16) ✅ Live
@@ -91,7 +92,7 @@ DL-Learning-Roadmap/
 
 ---
 
-### 🔄 Phase 4: Deploy & Ship — In Progress
+### ✅ Phase 4: Deploy & Ship — COMPLETE
 
 | Day | Topic | Key Concept | Result | Notebook |
 |-----|-------|-------------|--------|----------|
@@ -99,8 +100,8 @@ DL-Learning-Roadmap/
 | ✅ Day 26 | Gradio UI | Chat Interface · gr.State · Subprocess Fix | Two-tab Gradio app calling FastAPI over HTTP · session memory via `gr.State` · all 3 error states handled · Gradio imports `nest_asyncio` internally — fixed by running FastAPI as subprocess | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
 | ✅ Day 27 | Docker | Dockerfile · docker-compose · Layer Caching | Production Dockerfile with layer-cache optimized pip install · docker-compose.yml with ChromaDB named volumes + health checks · pinned requirements for reproducible builds | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
 | ✅ Day 28 | Deploy to Render | Live URL · Docker Build · CI/CD · Secret Scanning | **[🚀 LIVE API](https://indian-legal-rag-api-xe44.onrender.com/docs)** · `git push` → Render detects → `docker build` → live · GitHub secret scanning blocked accidental key commit — fixed with `git commit --amend` + key rotation | [View](./phase-4-deploy/phase-4-deploy.ipynb) |
-| ⏳ Day 29 | GitHub Portfolio Cleanup | README · Badges · Pinned Repos | — | Coming |
-| ⏳ Day 30 | Interview Prep | 30 Q&As · STAR Format · Reflection | — | Coming |
+| ✅ Day 29 | Portfolio Cleanup | README · Badges · Pinned Repos | profile README around shipped projects| — |
+| ✅ Day 30 | Interview Prep | 30 Q&As · STAR Format · Reflection |STAR write-ups for all 4 deployed projects, LinkedIn headline  | - |
 
 ---
 
@@ -184,7 +185,6 @@ DL-Learning-Roadmap/
 | Async Isolation | `nest_asyncio` is a fragile patch — Gradio applies it internally on import and breaks uvicorn's `loop_factory` on Python 3.12; fix is running FastAPI as a subprocess before Gradio is imported |
 | Separation of Concerns | Gradio UI contains zero business logic — one HTTP POST is the entire chat function; UI and API are independently replaceable |
 | Layer Cache Optimisation | `COPY requirements.txt` before `COPY app/` — pip install cached on most builds; first build 4 min → subsequent builds ~10s |
-| Secret Scanning | GitHub push protection blocked accidental API key commit in `.env.example` — fixed with `git commit --amend` + force push + immediate key rotation |
 | Production Deployment | `git push` → Render detects → `docker build` → `docker run` → live public URL — zero manual server config, Cloudflare SSL automatic |
 | Live API Verified | `GET /health` 200 · `POST /chat` 200 with session ID + 2 source chunks · `POST /predict` 200 with label + confidence · Swagger UI at [/docs](https://indian-legal-rag-api-xe44.onrender.com/docs) accessible from any browser |
 
@@ -215,4 +215,6 @@ DL-Learning-Roadmap/
 
 ---
 
-*Updated daily — every result in this README was actually measured, not estimated.*
+*Every result in this README was actually measured, not estimated.*
+
+**30 Days. 4 Phases. 4 Live Projects. Roadmap complete.**
